@@ -3,4 +3,4 @@ streamlit
 pandas
 scikit-learn
 xlsxwriter
-sentence_transformer
+sentence_transformers

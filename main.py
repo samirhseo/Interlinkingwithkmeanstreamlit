@@ -58,7 +58,7 @@ Upload your internal_html.csv file
 uploaded_file = st.file_uploader("Upload CSV", type=".csv")
 
 
-if uploaded_file:
+if st.button('Run Tool'):
 
   df = pd.read_csv(uploaded_file)
 

@@ -14,14 +14,15 @@ import io
 #create memory buffer for download button
 buffer = io.BytesIO()
 
-
 st.set_page_config(page_title="Inlinking Opportunities with K-Mean Categories",page_icon="⛓💡", initial_sidebar_state="collapsed")
 
 st.title("⛓ Inlinking with K-Mean")
 
+st.write("A tool for generating a high level overview of inlink opportunities. Particularly useful for clients with poor site structure or topics that span across multiple categories / clusters.")
+
 st.markdown("![Alt Text](https://c.tenor.com/x5JdEdbPPkIAAAAC/link-link-thinking.gif)")
 
-#replaced below variable with a cached wrapper
+#replaced below commented variable with a cached wrapper
 #embedder = SentenceTransformer('all-MiniLM-L6-v2')
 
 @st.experimental_memo
@@ -56,6 +57,7 @@ Upload your internal_html.csv file
 
 uploaded_file = st.file_uploader("Upload CSV", type=".csv")
 
+
 if uploaded_file:
 
   df = pd.read_csv(uploaded_file)
@@ -68,13 +70,12 @@ if uploaded_file:
 
   corpus = df["Title 1"].tolist()
 
-  print(corpus)
+  num_clusters = int(st.text_input('Number of Clusters', value=10, max_chars=2))
 
 
   corpus_embeddings = embedder_cache().encode(corpus)
 
   # adjust this as needed
-  num_clusters = 15
   clustering_model = KMeans(n_clusters=num_clusters)
   clustering_model.fit(corpus_embeddings)
   cluster_assignment = clustering_model.labels_
